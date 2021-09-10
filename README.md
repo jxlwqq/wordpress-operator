@@ -330,3 +330,9 @@ wordpress-74cd5fc6c7-ctzr8   1/1     Running   0          30s
 wordpress-74cd5fc6c7-lpzh4   1/1     Running   0          36s
 ```
 
+#### 做好清理
+
+```shell
+operator-sdk cleanup wordpress-operator
+operator-sdk olm uninstall
+```
