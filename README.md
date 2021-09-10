@@ -214,3 +214,11 @@ func (r *WordpressReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Complete(r)
 }
 ```
+
+
+运行以下命令以生成和更新 CRD 清单：
+```shell
+make manifests
+```
+
+
