@@ -44,3 +44,14 @@ operator-sdk create api \
 --version=v1alpha1 \
 --kind=Wordpress
 ```
+
+定义 Wordpress 自定义资源（CR）的 API。
+
+修改 api/v1alpha1/wordpress_types.go 中的 Go 类型定义，使其具有以下 spec 和 status
+
+```go
+type WordpressSpec struct {
+	Size int32 `json:"size"`
+	Version string `json:"version"`
+}
+```
