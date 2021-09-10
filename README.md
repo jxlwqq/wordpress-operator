@@ -28,3 +28,19 @@ operator-sdk init \
 --repo=github.com/jxlwqq/wordpress-operator \
 --skip-go-version-check
 ```
+
+
+### 创建 API 和控制器
+
+使用 Operator SDK CLI 创建自定义资源定义（CRD）API 和控制器。
+
+运行以下命令创建带有组 app、版本 v1alpha1 和种类 Wordpress 的 API：
+
+```shell
+operator-sdk create api \
+--resource=true \
+--controller=true \
+--group=app \
+--version=v1alpha1 \
+--kind=Wordpress
+```
