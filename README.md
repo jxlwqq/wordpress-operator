@@ -274,3 +274,59 @@ operator-sdk olm install
 # 使用 Operator SDK 中的 OLM 集成在集群中运行 Operator
 operator-sdk run bundle docker.io/jxlwqq/wordpress-operator-bundle:v0.0.1
 ```
+
+### 创建自定义资源
+
+编辑 config/samples/app_v1alpha1_wordpress.yaml 上的 Wordpress CR 清单示例，使其包含以下规格：
+
+```yaml
+apiVersion: app.jxlwqq.github.io/v1alpha1
+kind: Wordpress
+metadata:
+  name: wordpress-sample
+spec:
+  # Add fields here
+  size: 1
+  version: 4.8-apache
+```
+
+创建 CR：
+```shell
+kubectl apply -f config/samples/app_v1alpha1_wordpress.yaml
+```
+
+查看 Pod：
+```shell
+NAME                         READY   STATUS    RESTARTS   AGE
+mysql-dcdf75c65-mh444        1/1     Running   0          9s
+wordpress-5574b6d9d6-fdcj4   1/1     Running   0          5s
+```
+
+查看 Service：
+```shell
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        113m
+mysql-svc       ClusterIP   None            <none>        3306/TCP       21s
+wordpress-svc   NodePort    10.97.156.100   <none>        80:30690/TCP   17s
+```
+
+浏览器访问：http://localhost:30690
+
+网页上会显示出 WordPress 经典的欢迎页面。
+
+更新 CR：
+
+```shell
+# 修改副本数和 WordPress 版本
+kubectl patch wordpresses wordpress-sample -p '{"spec":{"size": 3, "version": "4.9-apache"}}' --type=merge
+```
+
+查看 Pod：
+```shell
+NAME                         READY   STATUS    RESTARTS   AGE
+mysql-dcdf75c65-mh444        1/1     Running   0          5m42s
+wordpress-74cd5fc6c7-97d2d   1/1     Running   0          26s
+wordpress-74cd5fc6c7-ctzr8   1/1     Running   0          30s
+wordpress-74cd5fc6c7-lpzh4   1/1     Running   0          36s
+```
+
