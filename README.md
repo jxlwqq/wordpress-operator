@@ -336,3 +336,7 @@ wordpress-74cd5fc6c7-lpzh4   1/1     Running   0          36s
 operator-sdk cleanup wordpress-operator
 operator-sdk olm uninstall
 ```
+
+### 更多
+
+更多经典示例请参考：https://github.com/jxlwqq/kubernetes-examples
